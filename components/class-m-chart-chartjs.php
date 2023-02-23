@@ -591,7 +591,7 @@ class M_Chart_Chartjs {
    			)
 		) {
 			foreach ( $chart_args['data']['labels'] as $key => $label ) {
-				$chart_args['data']['datasets'][0]['data'][] = $data_array[ $key ];
+				$chart_args['data']['datasets'][0]['data'][] = $data_array[ $key ] ?? null;
 			}
 		} elseif (
 			   'radar' == $this->post_meta['type']
