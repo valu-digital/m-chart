@@ -48,7 +48,8 @@ if ( '' != $args['width'] && 'responsive' != $args['width'] ) {
 				}
 			}
 
-			Chart.register(ChartDataLabels);
+            // Breaks the plugin
+			// Chart.register(window.ChartDataLabels);
 
 			this.chart = new Chart(
 				m_chart_container_<?php echo absint( $post_id ); ?>_<?php echo absint( $this->instance ); ?>_canvas,
