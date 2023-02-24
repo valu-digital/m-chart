@@ -54,44 +54,44 @@ class M_Chart_Admin {
 		// If multiple libraries are active we'll give you the option of using each one
 		// @TODO As written this will break if there's ever more than 10 active libraries... so yeah
 		global $submenu;
-		
+
 		$libraries = m_chart()->get_libraries();
-		
+
 		// If there's only one library we stop here as it's unecessary
 		if ( 1 === count( $libraries ) ) {
 			return;
 		}
-		
+
 		// Put the default library into the admin menu first
 		$args = array(
 			'post_type' => m_chart()->slug,
 			'library'   => m_chart()->get_library(),
 		);
-		
+
 		$submenu[ 'edit.php?post_type=' . m_chart()->slug ][10] = array(
 			'Add ' . $libraries[ m_chart()->get_library() ] . ' Chart',
 			'edit_posts',
 			add_query_arg( $args, admin_url( 'post-new.php' ) )
 		);
-		
+
 		unset( $libraries[ m_chart()->get_library() ] );
 
 		// Add a Add Chart option for each active library that isn't the current default
 		$key = 11;
-		
+
 		foreach ( $libraries as $library => $library_name ) {
 			$args = array(
 				'post_type' => m_chart()->slug,
 				'library'   => $library,
 			);
-		
+
 			$submenu[ 'edit.php?post_type=' . m_chart()->slug ][ $key ] = array(
 				'Add ' . $library_name . ' Chart',
 				'edit_posts',
 				add_query_arg( $args, admin_url( 'post-new.php' ) )
 			);
-			
-			$key++;
+
+			$key ++;
 		}
 
 		// Gotta sort them so they're in the right order
@@ -116,7 +116,7 @@ class M_Chart_Admin {
 
 		// Check the nonce
 		if (
-			   ! isset( $_POST[ m_chart()->slug ] )
+			! isset( $_POST[ m_chart()->slug ] )
 			|| ! wp_verify_nonce( $_POST[ m_chart()->slug ]['nonce'], m_chart()->slug . '-save-settings' )
 		) {
 			return;
@@ -150,7 +150,7 @@ class M_Chart_Admin {
 					if ( 'numericSymbols' == $lang_setting ) {
 						// The numeric symbols are input as a comma seperated string so we'll deal with that here
 						$numeric_symbols = explode( ',', $lang_value );
-						$safe_symbols = array();
+						$safe_symbols    = array();
 
 						foreach ( $numeric_symbols as $symbol ) {
 							$safe_symbols[] = trim( $symbol );
@@ -171,7 +171,7 @@ class M_Chart_Admin {
 				}
 			} else {
 				// Make sure the value is safe before attempting to save it
-				if ( preg_match('#^[a-zA-Z0-9-_]+$#', $submitted_settings[ $setting ] ) ) {
+				if ( preg_match( '#^[a-zA-Z0-9-_]+$#', $submitted_settings[ $setting ] ) ) {
 					$validated_settings[ $setting ] = $submitted_settings[ $setting ];
 				} else {
 					$validated_settings[ $setting ] = $default;
@@ -195,9 +195,9 @@ class M_Chart_Admin {
 	 */
 	public function save_success() {
 		?>
-	    <div class="updated notice notice-success">
-	         <p><?php esc_html_e( 'Settings saved', 'm-chart' ); ?></p>
-	     </div>
+		<div class="updated notice notice-success">
+			<p><?php esc_html_e( 'Settings saved', 'm-chart' ); ?></p>
+		</div>
 		<?php
 	}
 
@@ -211,14 +211,14 @@ class M_Chart_Admin {
 
 		$highcharts_check = get_posts(
 			array(
-				'post_type' => m_chart()->slug,
+				'post_type'      => m_chart()->slug,
 				'posts_per_page' => 1,
-				'post_status' => 'any',
-				'tax_query' => array(
+				'post_status'    => 'any',
+				'tax_query'      => array(
 					array(
 						'taxonomy' => m_chart()->slug . '-library',
-						'field' => 'slug',
-						'terms' => 'highcharts'
+						'field'    => 'slug',
+						'terms'    => 'highcharts'
 					),
 				),
 			)
@@ -308,9 +308,9 @@ class M_Chart_Admin {
 			$library = m_chart()->get_library();
 
 			if ( ! empty( $post_id ) ) {
-			  $library = m_chart()->get_post_meta( absint( $post_id ), 'library' );
-			} elseif ( 
-				   'post' == $screen->base
+				$library = m_chart()->get_post_meta( absint( $post_id ), 'library' );
+			} elseif (
+				'post' == $screen->base
 				&& 'add' == $screen->action
 				&& isset( $_GET['library'] )
 				&& m_chart()->is_valid_library( $_GET['library'] )
@@ -435,13 +435,13 @@ class M_Chart_Admin {
 		}
 		?>
 		<form id="<?php echo esc_attr( $this->get_field_id( 'csv-import-form' ) ); ?>" style="display: none;">
-			<input type="file" name="import_csv_file" id="<?php echo esc_attr( $this->get_field_id( 'csv-file' ) ); ?>" class="hide" />
+			<input type="file" name="import_csv_file" id="<?php echo esc_attr( $this->get_field_id( 'csv-file' ) ); ?>" class="hide"/>
 		</form>
 		<form action="<?php echo esc_url( admin_url( 'admin-ajax.php?action=m_chart_export_csv' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'csv-export-form' ) ); ?>" style="display: none;" method="post">
-			<input type="hidden" name="post_id" value="" id="<?php echo esc_attr( $this->get_field_id( 'csv-post-id' ) ); ?>" />
-			<input type="hidden" name="data" value="" id="<?php echo esc_attr( $this->get_field_id( 'csv-data' ) ); ?>" />
-			<input type="hidden" name="title" value="" id="<?php echo esc_attr( $this->get_field_id( 'csv-title' ) ); ?>" />
-			<input type="hidden" name="set_name" value="" id="<?php echo esc_attr( $this->get_field_id( 'csv-set-name' ) ); ?>" />
+			<input type="hidden" name="post_id" value="" id="<?php echo esc_attr( $this->get_field_id( 'csv-post-id' ) ); ?>"/>
+			<input type="hidden" name="data" value="" id="<?php echo esc_attr( $this->get_field_id( 'csv-data' ) ); ?>"/>
+			<input type="hidden" name="title" value="" id="<?php echo esc_attr( $this->get_field_id( 'csv-title' ) ); ?>"/>
+			<input type="hidden" name="set_name" value="" id="<?php echo esc_attr( $this->get_field_id( 'csv-set-name' ) ); ?>"/>
 		</form>
 		<script type="text/javascript">
 			<?php do_action( 'm_chart_admin_footer_javascript' ); ?>
@@ -505,7 +505,7 @@ class M_Chart_Admin {
 			<?php
 		}
 	}
-	
+
 	/**
 	 * Add the Chart.js admin settings to the M Chart Settings page
 	 */
@@ -584,7 +584,7 @@ class M_Chart_Admin {
 
 		// Make sure we don't overwrite existing settings in the case someone hits update too quickly
 		if (
-			   isset( $_POST[ m_chart()->slug ]['library'] )
+			isset( $_POST[ m_chart()->slug ]['library'] )
 			// Make sure the library value is clean and valid before trying to use it
 			&& $library = m_chart()->is_valid_library( $_POST[ m_chart()->slug ]['library'] )
 		) {
@@ -674,6 +674,7 @@ class M_Chart_Admin {
 
 		if ( is_wp_error( $img_id ) ) {
 			@unlink( $file_array['tmp_name'] );
+
 			return $img_id;
 		}
 		// STOP acting like media_sideload_image
@@ -774,7 +775,7 @@ class M_Chart_Admin {
 			if ( $temp_count < $count ) {
 				$difference = $count - $temp_count;
 
-				for ( $i = 0; $i < $difference; $i++ ) {
+				for ( $i = 0; $i < $difference; $i ++ ) {
 					$data_array[ $key ][] = '';
 				}
 			}
@@ -789,7 +790,7 @@ class M_Chart_Admin {
 	public function ajax_export_csv() {
 		// Purposely using $_REQUEST here since this method can work via a GET and POST request
 		// POST requests are used when passing the data value since it's too big to pass via GET
-		if ( ! is_numeric( $_REQUEST['post_id'] )  || ! current_user_can( 'edit_post', absint( $_REQUEST['post_id'] ) ) ) {
+		if ( ! is_numeric( $_REQUEST['post_id'] ) || ! current_user_can( 'edit_post', absint( $_REQUEST['post_id'] ) ) ) {
 			wp_die( 'Unauthorized access', 'You do not have permission to do that', array( 'response' => 401 ) );
 		}
 
@@ -850,8 +851,8 @@ class M_Chart_Admin {
 		$library = apply_filters( 'm_chart_library_class', m_chart()->library_class, $_POST['library'] );
 
 		// Set these values so that get_chart_args has them already available before we call it
-		$library->args = m_chart()->get_chart_default_args;
-		$library->post = $post;
+		$library->args             = m_chart()->get_chart_default_args;
+		$library->post             = $post;
 		$library->post->post_title = sanitize_text_field( $_POST['title'] );
 
 		// validate_post_meta returns only valid post meta values and does data validation on each item
