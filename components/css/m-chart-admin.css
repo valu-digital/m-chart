@@ -370,4 +370,64 @@
 	padding-right: 10px;
 }
 
+.acf-field-m-chart-color-key label {
+	position: relative;
+	padding-left: 20px;
+}
+.acf-field-m-chart-color-key input[type=radio]::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 0;
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	transform: translateY(calc(-50% + 1px));
+}
+.acf-field-m-chart-color-key input[type=radio][value="#ef4523"]::after {
+	background-color: #ef4523;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#6b0b0c"]::after {
+	background-color: #6b0b0c;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#f58f7b"]::after {
+	background-color: #f58f7b;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#fac7bd"]::after {
+	background-color: #fac7bd;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#000"]::after {
+	background-color: #000;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#666666"]::after {
+	background-color: #666666;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#1f77b4"]::after {
+	background-color: #1f77b4;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#ff7f0e"]::after {
+	background-color: #ff7f0e;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#2ca02c"]::after {
+	background-color: #2ca02c;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#d62728"]::after {
+	background-color: #d62728;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#9467bd"]::after {
+	background-color: #9467bd;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#e377c2"]::after {
+	background-color: #e377c2;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#7f7f7f"]::after {
+	background-color: #7f7f7f;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#bcbd22"]::after {
+	background-color: #bcbd22;
+}
+.acf-field-m-chart-color-key input[type=radio][value="#17becf"]::after {
+	background-color: #17becf;
+}
+
 /*# sourceMappingURL=m-chart-admin.css.map */

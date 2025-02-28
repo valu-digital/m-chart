@@ -449,6 +449,26 @@ class M_Chart_Chartjs {
 			}
 		}
 
+		/**
+		 * Custom colors from ACF fields
+		 */
+		if ( function_exists( 'get_field' ) ) {
+			$chart_custom_colors_acf_value = get_field( 'm_chart_colors_repeater', $post_id );
+
+			if ( $chart_custom_colors_acf_value ) {
+				$chart_custom_colors = array_map( function ( $color_selection ) {
+					return ! empty( $color_selection['m_chart_color_other'] ) ? $color_selection['m_chart_color_other'] : $color_selection['m_chart_color'];
+				}, $chart_custom_colors_acf_value );
+
+				if ( isset( $chart_args['data']['datasets'] ) ) {
+					foreach ( $chart_args['data']['datasets'] as $key => $dataset ) {
+						$chart_args['data']['datasets'][ $key ]['backgroundColor'] = $chart_custom_colors;
+						$chart_args['data']['datasets'][ $key ]['borderColor']     = $chart_custom_colors;
+					}
+				}
+			}
+		}
+
 		// Data labels are handled by a plugin so we have to conditionally set these values
 		$chart_args['options']['plugins']['datalabels']['display'] = false;
 

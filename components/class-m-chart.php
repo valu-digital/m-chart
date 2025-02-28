@@ -1,5 +1,7 @@
 <?php
 
+use Geniem\ACF;
+
 class M_Chart {
 	public $dev = true;
 	public $version = '1.9.4.1';
@@ -93,6 +95,9 @@ class M_Chart {
 
 		add_shortcode( 'chart', array( $this, 'chart_shortcode' ) );
 		add_shortcode( 'chart-share', array( $this, 'share_shortcode' ) );
+
+		// Register ACF fields
+		add_action( 'init', array( $this, 'valu_register_acf_fields' ) );
 	}
 
 	/**
@@ -1162,6 +1167,64 @@ class M_Chart {
 
 		// Update version
 		update_site_option( 'm_chart_version', '1.7.4' );
+	}
+
+	/**
+	 * Register ACF fields
+	 *
+	 * @return void
+	 * @throws ACF\Exception
+	 */
+	public function valu_register_acf_fields() {
+		// Check ACF Codifier is installed
+		if ( ! class_exists( 'Geniem\ACF\Group' ) ) {
+			error_log( basename( __FILE__ ) . ':' . __LINE__ . ' ' . 'ACF Codifier is not installed.', 0 );
+
+			return;
+		}
+		$prefix = 'm_chart_acf_group';
+
+		$field_group = new ACF\Group( 'Kuvaajan värit', "{$prefix}_field_group_key" );
+
+		$rule_group = new ACF\RuleGroup();
+		$rule_group->add_rule( 'post_type', '==', 'm-chart' );
+		$field_group->add_rule_group( $rule_group );
+
+
+		$repeater = ( new ACF\Field\Repeater( 'Värit', 'm_chart_colors_repeater_key', 'm_chart_colors_repeater' ) )
+			->add_fields( [
+				( new ACF\Field\Radio( 'Väri', 'm_chart_color_key', 'm_chart_color' ) )
+					->set_required()
+					->set_layout( 'horizontal' )
+					->set_choices( [
+						'#ef4523' => 'Brändi primääri',
+						'#6b0b0c' => 'Brändi sekundääri',
+						'#f58f7b' => 'Brändi tertiääri',
+						'#fac7bd' => 'Brändi kvartääri',
+						'#000'    => 'Brändi musta',
+						'#666666' => 'Brändi harmaa',
+						'#1f77b4' => 'Sininen',
+						'#ff7f0e' => 'Oranssi',
+						'#2ca02c' => 'Vihreä',
+						'#d62728' => 'Punainen',
+						'#9467bd' => 'Violetti',
+						'#e377c2' => 'Pinkki',
+						'#7f7f7f' => 'Harmaa',
+						'#bcbd22' => 'Oliivi',
+						'#17becf' => 'Syaani',
+					] ),
+				( new ACF\Field\Text( 'Muu väri', 'm_chart_color_other_key', 'm_chart_color_other' ) )
+					->set_instructions( 'Värin HEX-arvo (esim. #000000)' )
+					->set_maxlength( 7 ),
+			] )
+			->set_instructions( 'Aseta värit datan mukaan järjestyksessä. Voit järjestää värejä uudelleen raahaamalla.' )
+			->set_layout( 'row' )
+			->set_button_label( 'Lisää väri' );
+
+		$field_group->add_fields( [
+			$repeater,
+		] );
+		$field_group->register();
 	}
 }
 

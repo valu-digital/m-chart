@@ -1,0 +1,109 @@
+.acf-field-m-chart-color-key {
+    label {
+        position: relative;
+        padding-left: 20px;
+    }
+
+    input[type="radio"] {
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            transform: translateY(calc(-50% + 1px));
+        }
+
+        &[value="#ef4523"] {
+            &::after {
+                background-color: $color-graph-brand-primary;
+            }
+        }
+
+        &[value="#6b0b0c"] {
+            &::after {
+                background-color: $color-graph-brand-secondary;
+            }
+        }
+
+        &[value="#f58f7b"] {
+            &::after {
+                background-color: $color-graph-brand-tertiary;
+            }
+        }
+
+        &[value="#fac7bd"] {
+            &::after {
+                background-color: $color-graph-brand-quaternary;
+            }
+        }
+
+        &[value="#000"] {
+            &::after {
+                background-color: $color-graph-brand-black;
+            }
+        }
+
+        &[value="#666666"] {
+            &::after {
+                background-color: $color-graph-brand-gray;
+            }
+        }
+
+        &[value="#1f77b4"] {
+            &::after {
+                background-color: $color-graph-blue;
+            }
+        }
+
+        &[value="#ff7f0e"] {
+            &::after {
+                background-color: $color-graph-orange;
+            }
+        }
+
+        &[value="#2ca02c"] {
+            &::after {
+                background-color: $color-graph-green;
+            }
+        }
+
+        &[value="#d62728"] {
+            &::after {
+                background-color: $color-graph-red;
+            }
+        }
+
+        &[value="#9467bd"] {
+            &::after {
+                background-color: $color-graph-purple;
+            }
+        }
+
+        &[value="#e377c2"] {
+            &::after {
+                background-color: $color-graph-pink;
+            }
+        }
+
+        &[value="#7f7f7f"] {
+            &::after {
+                background-color: $color-graph-gray;
+            }
+        }
+
+        &[value="#bcbd22"] {
+            &::after {
+                background-color: $color-graph-olive;
+            }
+        }
+
+        &[value="#17becf"] {
+            &::after {
+                background-color: $color-graph-cyan;
+            }
+        }
+    }
+}
