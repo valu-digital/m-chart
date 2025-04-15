@@ -487,7 +487,7 @@ class M_Chart {
 			if ( is_array( $value ) ) {
 				$data[ $key ] = $this->validate_data( $value );
 			} else {
-				$data[ $key ] = wp_filter_nohtml_kses( $value );
+				$data[ $key ] = wp_filter_nohtml_kses( (string) $value );
 			}
 		}
 
